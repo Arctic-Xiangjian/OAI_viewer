@@ -10,6 +10,9 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import Toplevel
 
+# Define global constants
+MIN_WINDOW_WIDTH = 700
+MIN_WINDOW_HEIGHT = 500
 
 def get_file_path(filename):
     """get the absolute path of the file"""
@@ -55,7 +58,7 @@ def main():
     root.grid_columnconfigure(0, weight=1) # make the canvas expand to fill the entire grid
 
     # set the minimum size of the window
-    root.minsize(700, 500)
+    root.minsize(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT)
 
     filter_sid = ['Risk', 'Smoker', 'Diabetes', 'Stroke', 'Heart Attack']
 
