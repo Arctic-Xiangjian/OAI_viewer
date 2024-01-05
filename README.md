@@ -1,6 +1,6 @@
-#OAI Data Viewer
-##John's Ideas for Improvement
-###General
+# OAI Data Viewer
+## John's Ideas for Improvement
+### General
 - Let user quickly view the number of cases
 - Add a legend (including for average line, clarifying that it is the average across cases at time point)
     - Is average across all total cases or all filtered cases?
@@ -14,7 +14,7 @@
     - Potential uses:
         - Get exact value when hover over point
         - Vertical bar that shows values for each selected 
-###Slice viewer
+### Slice viewer
 - Let user set a threshold and color points that are outside of that threshold
 - Let user filter cases with certain confidence threshold variation
 - Keep range the same across patients for an easier comparison
