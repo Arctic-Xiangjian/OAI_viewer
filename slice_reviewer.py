@@ -195,7 +195,7 @@ def main():
 
     plot_data()
     # patient_id_dropdown.bind('<<ComboboxSelected>>', plot_data)
-    # 现在，我们只绑定一个函数到下拉菜单的选中事件
+    
     patient_id_dropdown.bind('<<ComboboxSelected>>', on_patient_id_selected)
     which_measure_dropdown.bind('<<ComboboxSelected>>', plot_data)
     side_var.trace_add('write', plot_data)

@@ -53,7 +53,7 @@ def main():
     # 初始化显示
     update_info()
 
-    # 运行主循环
+    #
     root.mainloop()
 
 if __name__ == '__main__':

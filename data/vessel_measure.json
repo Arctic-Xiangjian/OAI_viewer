@@ -1,0 +1,13 @@
+{   
+    "Max Wall Thickness" : "max_wt",
+    "Min Wall Thickness" : "min_wt",
+    "Mean Wall Thickness" : "mean_wt",
+    "Wall area" : "wa",
+    "Lumen area" : "la",
+    "total vessel area" : "tva",
+    "Normalized wall index: 100% x wa / tva": "nwi",
+    "Eccentricity ratio: max_wt / min_wt": "ecc",
+    "FRAPPE confidence score": "conf_seg",
+    "FRAPPE consistency score for lumen": "cst_lu",
+    "FRAPPE consistency score for wall": "cst_wa"
+}

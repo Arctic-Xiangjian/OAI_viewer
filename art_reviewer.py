@@ -26,7 +26,7 @@ def main():
     except FileNotFoundError:
         print('No data file found, please put the art.csv and clin_data_selected.csv in the ./data folder.')
 
-    # 尝试读取 JSON 文件
+    # read in the JSON file
     try:
         with open(get_file_path('data/art_measure.json'), 'r') as file:
             arc_data_json = json.load(file)
@@ -46,7 +46,6 @@ def main():
     checkbox_frame = ttk.Frame(root)
     checkbox_frame.grid(row=1, column=1)
 
-    # 创建复选框变量
     checkbox_var = {}
 
     def update_dropdown():
@@ -55,14 +54,14 @@ def main():
             if var.get() == 1:
                 filtered_data = filtered_data[filtered_data[key] == 'Yes']
         
-        # 更新下拉菜单的选项
+        # update the dropdown
         patient_id_dropdown['values'] = list(filtered_data['sid'].unique())
         if filtered_data['sid'].unique().size > 0:
             patient_id_dropdown.set(filtered_data['sid'].unique()[0])
         else:
             patient_id_dropdown.set('')
 
-    # 创建并放置复选框
+    # create the multi-select checkbox
     for i, value in enumerate(filter_sid):
         checkbox_var[value] = tk.IntVar()
         checkbox = ttk.Checkbutton(checkbox_frame, text=value, variable=checkbox_var[value], command=update_dropdown)
@@ -90,7 +89,7 @@ def main():
     side_r.pack(side=tk.LEFT)
 
 
-    # 绘图区域
+    # plot the data
     fig, ax = plt.subplots(figsize=(5, 3))
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas_widget = canvas.get_tk_widget()
