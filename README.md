@@ -3,7 +3,7 @@
 ### General
 - Add units to axes
 - Let user quickly view the number of cases
-- Add a legend (including for average line, clarifying that it is the average across cases at time point)
+- Add to legend (including for average line, clarifying that it is the average across cases at time point)
     - Is average across all total cases or all filtered cases?
 - Instead of removing checkboxes for non-existant timepoints, perhaps gray it out??
     - This may not be an improvement, but could be worth exploring. I think the removal may make it slightly confusing to see what is going on. Also, graying it out would make it more obvious to the user that the timepoint doesn't exist, which could be helpful in discovering missing data (hopefully this would never happen).
