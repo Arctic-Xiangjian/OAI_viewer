@@ -86,7 +86,10 @@ def main():
     for i, value in enumerate(filter_sid):
         checkbox_var[value] = tk.IntVar()
         checkbox = ttk.Checkbutton(checkbox_frame, text=value, variable=checkbox_var[value], command=update_dropdown)
-        checkbox.grid(row=3, column=i, sticky='w', padx = (0, 10))
+        if (i < 4):
+            checkbox.grid(row=3, column=i, sticky='w', padx = (0, 6))
+        else:
+            checkbox.grid(row=3, column=i, sticky='w', padx = (0, 12))
 
 
     # 创建Combobox
@@ -129,7 +132,7 @@ def main():
         for tp in sorted(available_time_points):
             var = tk.BooleanVar(value = True if tp in old_states else False)
             cb = ttk.Checkbutton(time_point_frame, text=str(tp), variable=var)
-            cb.pack(side=tk.LEFT)
+            cb.pack(side=tk.LEFT, padx = 3)
             time_point_checkboxes[tp] = var
             var.trace_add('write', plot_data)
 
@@ -142,8 +145,8 @@ def main():
     side_frame.grid(row=0, column=1, padx=10, pady=10)
     side_l = ttk.Radiobutton(side_frame, text='L', variable=side_var, value='L')
     side_r = ttk.Radiobutton(side_frame, text='R', variable=side_var, value='R')
-    side_l.pack(side=tk.LEFT)
-    side_r.pack(side=tk.LEFT)
+    side_l.pack(side=tk.LEFT, padx = 3)
+    side_r.pack(side=tk.LEFT, padx = 3)
 
     # side_var.trace_add('write', update_time_points)
 
