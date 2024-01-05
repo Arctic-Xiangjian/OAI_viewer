@@ -54,6 +54,9 @@ def main():
     root.grid_rowconfigure(2, weight=1) # make the canvas expand to fill the entire grid
     root.grid_columnconfigure(0, weight=1) # make the canvas expand to fill the entire grid
 
+    # set the minimum size of the window
+    root.minsize(700, 500)
+
     filter_sid = ['Risk', 'Smoker', 'Diabetes', 'Stroke', 'Heart Attack']
 
     checkbox_frame = ttk.Frame(root)
