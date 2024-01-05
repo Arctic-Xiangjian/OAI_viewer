@@ -1,6 +1,7 @@
 # OAI Data Viewer
 ## John's Ideas for Improvement
 ### General
+- Add units to axes
 - Let user quickly view the number of cases
 - Add a legend (including for average line, clarifying that it is the average across cases at time point)
     - Is average across all total cases or all filtered cases?
