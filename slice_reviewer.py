@@ -103,7 +103,7 @@ def main():
     # patient_id_dropdown.grid(row=0, column=0, padx=10, pady=10)
 
     # build the which measure dropdown
-    which_measure_dropdown = ttk.Combobox(root, values=list(vessel_data_json.keys()))
+    which_measure_dropdown = ttk.Combobox(root, values=list(vessel_data_json.keys()), state='readonly')
     which_measure_dropdown.set(list(vessel_data_json.keys())[0])
     which_measure_dropdown.grid(row=1, column=0, padx=10, pady=10)
 
