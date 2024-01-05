@@ -15,6 +15,11 @@
     - Potential uses:
         - Get exact value when hover over point
         - Vertical bar that shows values for each selected 
+- It could be good to add a search/autocomplete function to the patient id combobox
+    - Some possible solutions found here:
+        - https://www.tutorialspoint.com/how-to-create-a-combo-box-with-auto-completion-in-tkinter
+        - https://www.geeksforgeeks.org/autocmplete-combobox-in-python-tkinter/
+        - https://codereview.stackexchange.com/questions/112104/searching-combobox-drop-down-list
 ### Slice viewer
 - Let user set a threshold and color points that are outside of that threshold
 - Let user filter cases with certain confidence threshold variation
