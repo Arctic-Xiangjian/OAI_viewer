@@ -82,10 +82,11 @@ def main():
             patient_id_dropdown.set('')
 
     # 创建并放置复选框
+    # Create the checkboxes for ['Risk', 'Smoker', 'Diabetes', 'Stroke', 'Heart Attack']
     for i, value in enumerate(filter_sid):
         checkbox_var[value] = tk.IntVar()
         checkbox = ttk.Checkbutton(checkbox_frame, text=value, variable=checkbox_var[value], command=update_dropdown)
-        checkbox.pack(side=tk.RIGHT)
+        checkbox.grid(row=3, column=i, sticky='w', padx = (0, 10))
 
 
     # 创建Combobox
