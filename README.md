@@ -30,3 +30,8 @@
     - Look into this. Xiangjian said that changing values had no impact
 - Lines 172-176
     - Potential for performance improvements?
+
+### Completed improvements
+- Improved padding and spacing of checkboxes and radiobuttons
+- Moved "Patient Information" button to avoid overlap with checkboxes when window is too small
+- Created a minsize for the window
