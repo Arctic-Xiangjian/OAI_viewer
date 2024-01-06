@@ -11,7 +11,7 @@ from tkinter import ttk
 from tkinter import Toplevel
 
 # Define global constants
-MIN_WINDOW_WIDTH = 700
+MIN_WINDOW_WIDTH = 900
 MIN_WINDOW_HEIGHT = 500
 
 def get_file_path(filename):
@@ -60,20 +60,25 @@ def main():
     # set the minimum size of the window
     root.minsize(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT)
 
-    filter_sid = ['Risk', 'Smoker', 'Diabetes', 'Stroke', 'Heart Attack']
-
-    checkbox_frame = ttk.Frame(root)
-    checkbox_frame.grid(row=3, column=1, sticky='w', padx = 10)
-
-    # build the multi-select checkbox
-    checkbox_var = {}
-
     # Create a frame for the comboboxes, patient count, and their labels
     top_left_frame = ttk.Frame(root)
     top_left_frame.grid(row=0, column=0, padx=10, pady=10)
     # Create a frame for the side selection, timepoint checkboxes, and their labels
     top_right_frame = ttk.Frame(root)
     top_right_frame.grid(row=0, column=1, padx=10, pady=10)
+
+    filter_sid = ['Risk', 'Smoker', 'Diabetes', 'Stroke', 'Heart Attack']
+
+    # filter_checkbox_frame = ttk.Frame(root)
+    filter_checkbox_frame = ttk.Frame(top_right_frame)
+    filter_checkbox_frame.grid(row=2, column=1, sticky='w', padx = 10)
+
+    # Create a label for the filter checkboxes
+    filter_checkbox_label = ttk.Label(top_right_frame, text=f"Filter by:")
+    filter_checkbox_label.grid(row=2, column=0, padx=5, pady=5, sticky='e')
+
+    # build the multi-select checkbox
+    checkbox_var = {}
 
     def update_filtered_patients():
         filtered_data = sid_filter.copy()
@@ -98,7 +103,7 @@ def main():
     # Create the checkboxes for ['Risk', 'Smoker', 'Diabetes', 'Stroke', 'Heart Attack']
     for i, value in enumerate(filter_sid):
         checkbox_var[value] = tk.IntVar()
-        checkbox = ttk.Checkbutton(checkbox_frame, text=value, variable=checkbox_var[value], command=update_filtered_patients)
+        checkbox = ttk.Checkbutton(filter_checkbox_frame, text=value, variable=checkbox_var[value], command=update_filtered_patients)
         if (i < 4):
             checkbox.grid(row=3, column=i, sticky='w', padx = (0, 6))
         else:
@@ -298,7 +303,7 @@ def main():
         update_info()  # Call update_info to initialize the display with the current patient's data
 
     open_popup_button = tk.Button(root, text="Patient Information", command=Popinfo)
-    open_popup_button.grid(row=3, column=0, pady=10)  # Adjusted placement for button
+    open_popup_button.grid(row=3, column=0, columnspan=1, pady=10)  # Adjusted placement for button
 
     root.mainloop()
 
