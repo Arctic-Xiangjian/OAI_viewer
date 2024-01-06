@@ -63,14 +63,14 @@ def main():
     filter_sid = ['Risk', 'Smoker', 'Diabetes', 'Stroke', 'Heart Attack']
 
     checkbox_frame = ttk.Frame(root)
-    checkbox_frame.grid(row=3, column=1)
+    checkbox_frame.grid(row=3, column=1, sticky='w', padx = 10)
 
     # build the multi-select checkbox
     checkbox_var = {}
 
     # Create a frame for the comboboxes
-    combobox_frame = ttk.Frame(root)
-    combobox_frame.grid(row=0, column=0)
+    top_left_frame = ttk.Frame(root)
+    top_left_frame.grid(row=0, column=0)
 
     def update_filtered_patients():
         filtered_data = sid_filter.copy()
@@ -88,7 +88,8 @@ def main():
         num_filtered_patients = len(patient_id_dropdown['values'])
         print(f'number of filtered patients: {num_filtered_patients}')
         # Update the num_patients_label
-        num_patients_label.config(text = f"Number of filtered patients: {num_filtered_patients} of {num_total_patients} total patients")
+        # num_patients_label.config(text = f"Number of filtered patients: \t {num_filtered_patients} of {num_total_patients} total patients")
+        num_patients_label_count.config(text = f"{num_filtered_patients} of {num_total_patients} total patients")
 
     # 创建并放置复选框
     # Create the checkboxes for ['Risk', 'Smoker', 'Diabetes', 'Stroke', 'Heart Attack']
@@ -100,11 +101,17 @@ def main():
         else:
             checkbox.grid(row=3, column=i, sticky='w', padx = (0, 12))
 
+    # Add a label for the patient id combobox
+    patient_id_dropdown_label = ttk.Label(top_left_frame, text=f"Select a patient ID:")
+    patient_id_dropdown_label.grid(row=1, column=0, padx=5, pady=5, sticky='e')
+    
     # 创建Combobox
     # build the patient ID dropdown
-    patient_id_dropdown = ttk.Combobox(combobox_frame, values=list(sid_filter['sid'].unique()))
+    patient_id_dropdown = ttk.Combobox(top_left_frame, values=list(sid_filter['sid'].unique()))
     patient_id_dropdown.set(int(sid_filter['sid'].unique()[0]))
-    patient_id_dropdown.grid(row=0, column=0, padx=2, pady=2)
+    # patient_id_dropdown.grid(row=1, column=0, padx=2, pady=2)
+    patient_id_dropdown.grid(row=1, column=1, padx=5, pady=5)
+
     # Get the number of filtered patients. 
     # num_filtered_patients = len(patient_id_dropdown['values'])
     # print(f'number of total patients: {num_filtered_patients}')
@@ -114,13 +121,21 @@ def main():
     num_filtered_patients = num_total_patients
 
     # Add a label that displays the number of patient ids that match the filter
-    num_patients_label = ttk.Label(combobox_frame, text=f"Number of filtered patients: {num_filtered_patients} of {num_total_patients} total patients")
-    num_patients_label.grid(row=1, column=0, padx=2, pady=2)
+    # num_patients_label = ttk.Label(top_left_frame, text=f"Number of filtered patients: \t {num_filtered_patients} of {num_total_patients} total patients")
+    num_patients_label = ttk.Label(top_left_frame, text=f"Number of filtered patients:")
+    num_patients_label.grid(row=0, column=0, padx=5, pady=(10, 5), sticky='w')
+    num_patients_label_count = ttk.Label(top_left_frame, text=f"{num_filtered_patients} of {num_total_patients} total patients")
+    num_patients_label_count.grid(row=0, column=1, padx=5, pady=(10, 5), sticky='e')
+
+    # Add a label for the measurement type combobox
+    which_measure_dropdown_label = ttk.Label(top_left_frame, text=f"Select a measurement:")
+    which_measure_dropdown_label.grid(row=2, column=0, padx=5, pady=5, sticky='e')
 
     # build the which measure dropdown
-    which_measure_dropdown = ttk.Combobox(combobox_frame, values=list(vessel_data_json.keys()), state='readonly')
+    which_measure_dropdown = ttk.Combobox(top_left_frame, values=list(vessel_data_json.keys()), state='readonly')
     which_measure_dropdown.set(list(vessel_data_json.keys())[0])
-    which_measure_dropdown.grid(row=2, column=0, padx=10, pady=10)
+    # which_measure_dropdown.grid(row=2, column=0, padx=10, pady=10)
+    which_measure_dropdown.grid(row=2, column=1, padx=5, pady=5)
 
     # build the time point frame which is multi-select
     time_point_frame = ttk.Frame(root)
