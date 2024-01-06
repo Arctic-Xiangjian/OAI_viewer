@@ -303,7 +303,7 @@ def main():
         update_info()  # Call update_info to initialize the display with the current patient's data
 
     open_popup_button = tk.Button(root, text="Patient Information", command=Popinfo)
-    open_popup_button.grid(row=3, column=0, columnspan=1, pady=10)  # Adjusted placement for button
+    open_popup_button.grid(row=3, column=0, columnspan=2, pady=10)  # Adjusted placement for button
 
     root.mainloop()
 
