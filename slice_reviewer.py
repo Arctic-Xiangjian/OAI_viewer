@@ -68,9 +68,12 @@ def main():
     # build the multi-select checkbox
     checkbox_var = {}
 
-    # Create a frame for the comboboxes
+    # Create a frame for the comboboxes, patient count, and their labels
     top_left_frame = ttk.Frame(root)
-    top_left_frame.grid(row=0, column=0)
+    top_left_frame.grid(row=0, column=0, padx=10, pady=10)
+    # Create a frame for the side selection, timepoint checkboxes, and their labels
+    top_right_frame = ttk.Frame(root)
+    top_right_frame.grid(row=0, column=1, padx=10, pady=10)
 
     def update_filtered_patients():
         filtered_data = sid_filter.copy()
@@ -137,9 +140,13 @@ def main():
     # which_measure_dropdown.grid(row=2, column=0, padx=10, pady=10)
     which_measure_dropdown.grid(row=2, column=1, padx=5, pady=5)
 
-    # build the time point frame which is multi-select
-    time_point_frame = ttk.Frame(root)
-    time_point_frame.grid(row=1, column=1)
+    # Create a label for the time point selection checkboxes
+    time_point_checkboxes_label = ttk.Label(top_right_frame, text=f"Select time points:")
+    time_point_checkboxes_label.grid(row=1, column=0, padx=5, pady=5, sticky='e')
+
+    # build the time point frame which is multi-select checkboxes
+    time_point_checkboxes_frame = ttk.Frame(top_right_frame)
+    time_point_checkboxes_frame.grid(row=1, column=1)
     time_point_checkboxes = {}
 
     # dynamically update the time points when the patient ID is selected
@@ -151,7 +158,7 @@ def main():
                                         ]['tp'].unique()
 
         # clear the frame
-        for widget in time_point_frame.winfo_children():
+        for widget in time_point_checkboxes_frame.winfo_children():
             widget.destroy()
         # check the old states of the checkboxes
         old_states = [tp for tp, var in time_point_checkboxes.items() if var.get()]
@@ -160,7 +167,7 @@ def main():
         # create new checkboxes
         for tp in sorted(available_time_points):
             var = tk.BooleanVar(value = True if tp in old_states else False)
-            cb = ttk.Checkbutton(time_point_frame, text=str(tp), variable=var)
+            cb = ttk.Checkbutton(time_point_checkboxes_frame, text=str(tp), variable=var)
             cb.pack(side=tk.LEFT, padx = 3)
             time_point_checkboxes[tp] = var
             var.trace_add('write', plot_data)
@@ -168,14 +175,18 @@ def main():
     # when the patient ID is selected, update the time points
     # patient_id_dropdown.bind('<<ComboboxSelected>>', update_time_points)
 
-    # build the side
+    side_selection_frame = ttk.Frame(top_right_frame)
+    side_selection_frame.grid(row=0, column=1)
+    # Create a label for the side selection radiobuttons
+    side_var_label = ttk.Label(top_right_frame, text=f"Select a side:")
+    side_var_label.grid(row=0, column=0, padx=5, pady=5, sticky='e')
+
+    # build the side selection radiobuttons
     side_var = tk.StringVar(value='L')
-    side_frame = ttk.Frame(root)
-    side_frame.grid(row=0, column=1, padx=10, pady=10)
-    side_l = ttk.Radiobutton(side_frame, text='L', variable=side_var, value='L')
-    side_r = ttk.Radiobutton(side_frame, text='R', variable=side_var, value='R')
-    side_l.pack(side=tk.LEFT, padx = 3)
-    side_r.pack(side=tk.LEFT, padx = 3)
+    side_left = ttk.Radiobutton(side_selection_frame, text='Left', variable=side_var, value='L')
+    side_right = ttk.Radiobutton(side_selection_frame, text='Right', variable=side_var, value='R')
+    side_left.grid(row=0, column=0, padx = 3, pady = 3, sticky='w')
+    side_right.grid(row=0, column=1, padx = 3, pady = 3, sticky='w')
 
     # side_var.trace_add('write', update_time_points)
 
