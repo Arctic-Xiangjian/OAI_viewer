@@ -2,7 +2,6 @@
 ## John's Ideas for Improvement
 ### General
 - Add units to axes
-- Let user quickly view the number of cases
 - Add to legend (including for average line, clarifying that it is the average across cases at time point)
     - Is average across all total cases or all filtered cases?
 - Instead of removing checkboxes for non-existant timepoints, perhaps gray it out??
@@ -35,3 +34,6 @@
 - Improved padding and spacing of checkboxes and radiobuttons
 - Moved "Patient Information" button to avoid overlap with checkboxes when window is too small
 - Created a minsize for the window
+- Let user quickly view the number of cases
+- Moved all selections to the top right
+- Created labels for all selection fields
