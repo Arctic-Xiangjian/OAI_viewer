@@ -13,6 +13,7 @@ from tkinter import Toplevel
 # Define global constants
 MIN_WINDOW_WIDTH = 700
 MIN_WINDOW_HEIGHT = 500
+num_filtered_patients = 0
 
 def get_file_path(filename):
     """get the absolute path of the file"""
@@ -68,7 +69,7 @@ def main():
     # build the multi-select checkbox
     checkbox_var = {}
 
-    def update_dropdown():
+    def update_filtered_patients():
         filtered_data = sid_filter.copy()
         for key, var in checkbox_var.items():
             if var.get() == 1:
@@ -80,12 +81,15 @@ def main():
             patient_id_dropdown.set(filtered_data['sid'].unique()[0])
         else:
             patient_id_dropdown.set('')
+        # Get the number of filtered patients
+        num_filtered_patients = len(patient_id_dropdown['values'])
+        print('number of filtered patients: ' + str(num_filtered_patients))
 
     # 创建并放置复选框
     # Create the checkboxes for ['Risk', 'Smoker', 'Diabetes', 'Stroke', 'Heart Attack']
     for i, value in enumerate(filter_sid):
         checkbox_var[value] = tk.IntVar()
-        checkbox = ttk.Checkbutton(checkbox_frame, text=value, variable=checkbox_var[value], command=update_dropdown)
+        checkbox = ttk.Checkbutton(checkbox_frame, text=value, variable=checkbox_var[value], command=update_filtered_patients)
         if (i < 4):
             checkbox.grid(row=3, column=i, sticky='w', padx = (0, 6))
         else:
@@ -96,6 +100,15 @@ def main():
     patient_id_dropdown = ttk.Combobox(root, values=list(sid_filter['sid'].unique()))
     patient_id_dropdown.set(int(sid_filter['sid'].unique()[0]))
     patient_id_dropdown.grid(row=0, column=0, padx=2, pady=2)
+    # Get the number of filtered patients. Nothing is filtered yet, so this is the total number of patients
+    num_filtered_patients = len(patient_id_dropdown['values'])
+    print('number of total patients: ' + str(num_filtered_patients))
+
+    # Add a label that displays the number of patient ids that match the filter
+    # def update_patient_count():
+
+    # num_patients_label = ttk.Label(root, text=f"Number of patients: {len(patient_id_dropdown['values'])}")
+    # num_patients_label.grid(row=1, column=0, padx=2, pady=2)
 
     # build the patient ID dropdown
     # patient_id_dropdown = ttk.Combobox(root, values=list(data_loc['sid'].unique()))
