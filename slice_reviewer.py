@@ -13,7 +13,6 @@ from tkinter import Toplevel
 # Define global constants
 MIN_WINDOW_WIDTH = 700
 MIN_WINDOW_HEIGHT = 500
-num_filtered_patients = 0
 
 def get_file_path(filename):
     """get the absolute path of the file"""
@@ -69,6 +68,10 @@ def main():
     # build the multi-select checkbox
     checkbox_var = {}
 
+    # Create a frame for the comboboxes
+    combobox_frame = ttk.Frame(root)
+    combobox_frame.grid(row=0, column=0)
+
     def update_filtered_patients():
         filtered_data = sid_filter.copy()
         for key, var in checkbox_var.items():
@@ -83,7 +86,9 @@ def main():
             patient_id_dropdown.set('')
         # Get the number of filtered patients
         num_filtered_patients = len(patient_id_dropdown['values'])
-        print('number of filtered patients: ' + str(num_filtered_patients))
+        print(f'number of filtered patients: {num_filtered_patients}')
+        # Update the num_patients_label
+        num_patients_label.config(text = f"Number of filtered patients: {num_filtered_patients} of {num_total_patients} total patients")
 
     # 创建并放置复选框
     # Create the checkboxes for ['Risk', 'Smoker', 'Diabetes', 'Stroke', 'Heart Attack']
@@ -95,31 +100,27 @@ def main():
         else:
             checkbox.grid(row=3, column=i, sticky='w', padx = (0, 12))
 
-
     # 创建Combobox
-    patient_id_dropdown = ttk.Combobox(root, values=list(sid_filter['sid'].unique()))
+    # build the patient ID dropdown
+    patient_id_dropdown = ttk.Combobox(combobox_frame, values=list(sid_filter['sid'].unique()))
     patient_id_dropdown.set(int(sid_filter['sid'].unique()[0]))
     patient_id_dropdown.grid(row=0, column=0, padx=2, pady=2)
-    # Get the number of filtered patients. Nothing is filtered yet, so this is the total number of patients
-    num_filtered_patients = len(patient_id_dropdown['values'])
-    print('number of total patients: ' + str(num_filtered_patients))
+    # Get the number of filtered patients. 
+    # num_filtered_patients = len(patient_id_dropdown['values'])
+    # print(f'number of total patients: {num_filtered_patients}')
+    num_total_patients = len(patient_id_dropdown['values'])
+    print(f'number of total patients: {num_total_patients}')
+    # Nothing is filtered yet, so this is the total number of patients
+    num_filtered_patients = num_total_patients
 
     # Add a label that displays the number of patient ids that match the filter
-    # def update_patient_count():
-
-    # num_patients_label = ttk.Label(root, text=f"Number of patients: {len(patient_id_dropdown['values'])}")
-    # num_patients_label.grid(row=1, column=0, padx=2, pady=2)
-
-    # build the patient ID dropdown
-    # patient_id_dropdown = ttk.Combobox(root, values=list(data_loc['sid'].unique()))
-    # patient_id_dropdown.set(int(list(data_loc['sid'].unique())[0]))
-    # patient_id_dropdown.grid(row=0, column=0, padx=10, pady=10)
+    num_patients_label = ttk.Label(combobox_frame, text=f"Number of filtered patients: {num_filtered_patients} of {num_total_patients} total patients")
+    num_patients_label.grid(row=1, column=0, padx=2, pady=2)
 
     # build the which measure dropdown
-    which_measure_dropdown = ttk.Combobox(root, values=list(vessel_data_json.keys()), state='readonly')
+    which_measure_dropdown = ttk.Combobox(combobox_frame, values=list(vessel_data_json.keys()), state='readonly')
     which_measure_dropdown.set(list(vessel_data_json.keys())[0])
-    which_measure_dropdown.grid(row=1, column=0, padx=10, pady=10)
-
+    which_measure_dropdown.grid(row=2, column=0, padx=10, pady=10)
 
     # build the time point frame which is multi-select
     time_point_frame = ttk.Frame(root)
