@@ -20,6 +20,7 @@
         - https://www.geeksforgeeks.org/autocmplete-combobox-in-python-tkinter/
         - https://codereview.stackexchange.com/questions/112104/searching-combobox-drop-down-list
 - What does the "Risk" filter mean?
+
 ### Slice viewer
 - Let user set a threshold and color points that are outside of that threshold
 - Let user filter cases with certain confidence threshold variation
