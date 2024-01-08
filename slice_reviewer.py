@@ -21,7 +21,7 @@ MIN_WINDOW_HEIGHT = 500
 def get_file_path(filename):
     """get the absolute path of the file"""
     if getattr(sys, 'frozen', False):
-        application_path = sys._MEIPASS
+        application_path = sys._MEIPASS # pylint: disable=W0212
     else:
         application_path = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(application_path, filename)
@@ -180,7 +180,7 @@ def main():
     # Update the time point portion of the GUI based on patient and side selection
     ####################################################################################################
     # dynamically update the time points when the patient ID is selected
-    def update_time_points(*args):
+    def update_time_points(*args): # pylint: disable=W0613
         patient_id = patient_id_dropdown.get()
         side = side_var.get()
         available_time_points = data_loc[(data_loc['sid'] == int(patient_id)) &
@@ -234,7 +234,7 @@ def main():
     canvas_widget.grid(row=2, column=0, columnspan=2, sticky='nsew')
 
     # 可视化函数
-    def plot_data(*args):
+    def plot_data(*args): # pylint: disable=W0613
         which_measure = vessel_data_json[which_measure_dropdown.get()]
         patient_id = patient_id_dropdown.get()
         side = side_var.get()
