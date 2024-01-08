@@ -6,6 +6,9 @@
     - Is average across all total cases or all filtered cases?
 - Instead of removing checkboxes for non-existant timepoints, perhaps gray it out??
     - This may not be an improvement, but could be worth exploring. I think the removal may make it slightly confusing to see what is going on. Also, graying it out would make it more obvious to the user that the timepoint doesn't exist, which could be helpful in discovering missing data (hopefully this would never happen).
+        - ***I found some patients where some expected time points seeem to be missing, so we probably do want to implement this change***
+            - e.g. The top two results for "Diabetes" have discrepencies on the right side. Patient 9003316 has [0, 12, 24, 36, 48, 96], but Patient 9003406 has [0, 12, 24, 30, 36, 48, 72, 96].
+        - Additionally, 
 - Colors--do we need to consider colorblindness? (low priority, I'm not aware of anyone in the lab having this accessibliy need)
     - Check how current color scheme does for various color blindness types with [Coblis](https://www.color-blindness.com/coblis-color-blindness-simulator/)
 - Optimize line thickness to be able to view different lines comparatively
