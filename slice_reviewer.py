@@ -53,9 +53,9 @@ def main():
     except FileNotFoundError:
         print('No data file found, please put the vessel_measure.json in the ./data folder.')
 
-    '''
-    Build the GUI
-    '''
+    ##############################################################################################################
+    # Build the GUI
+    ##############################################################################################################
     # The root window is the main GUI window
     root = tk.Tk()
     root.title("Slice based Data Visualization")
@@ -86,9 +86,9 @@ def main():
     # build the multi-select checkbox
     checkbox_var = {}
 
-    '''
-    Update the filtered patients when the checkboxes are clicked
-    '''
+    ##############################################################################################################
+    # Update the filtered patients when the checkboxes are clicked
+    ##############################################################################################################
     def update_filtered_patients():
         filtered_data = sid_filter.copy()
         for key, var in checkbox_var.items():
@@ -108,9 +108,9 @@ def main():
         # num_patients_label.config(text = f"Number of filtered patients: \t {num_filtered_patients} of {num_total_patients} total patients")
         num_patients_label_count.config(text = f"{num_filtered_patients} of {num_total_patients} total patients")
 
-    '''
-    Create the portion of the GUI for risk factor filters: ['Risk', 'Smoker', 'Diabetes', 'Stroke', 'Heart Attack']
-    '''
+    ##############################################################################################################
+    # Create the portion of the GUI for risk factor filters: ['Risk', 'Smoker', 'Diabetes', 'Stroke', 'Heart Attack']
+    ##############################################################################################################
     # 创建并放置复选框
     # Create the checkboxes for ['Risk', 'Smoker', 'Diabetes', 'Stroke', 'Heart Attack']
     for i, value in enumerate(filter_sid):
@@ -121,9 +121,9 @@ def main():
         else:
             checkbox.grid(row=3, column=i, sticky='w', padx = (0, 12))
 
-    '''
-    Create the portion of the GUI for the patient ID selection
-    '''
+    ##############################################################################################################
+    # Create the portion of the GUI for the patient ID selection
+    ##############################################################################################################
     # Add a label for the patient id combobox
     patient_id_dropdown_label = ttk.Label(top_left_frame, text=f"Select a patient ID:")
     patient_id_dropdown_label.grid(row=1, column=0, padx=5, pady=5, sticky='e')
@@ -147,9 +147,9 @@ def main():
     num_patients_label_count = ttk.Label(top_left_frame, text=f"{num_filtered_patients} of {num_total_patients} total patients")
     num_patients_label_count.grid(row=0, column=1, padx=5, pady=(10, 5), sticky='e')
 
-    '''
-    Create the portion of the GUI for the measurement selection
-    '''
+    ##############################################################################################################
+    # Create the portion of the GUI for the measurement selection
+    ##############################################################################################################
     # Add a label for the measurement type combobox
     which_measure_dropdown_label = ttk.Label(top_left_frame, text=f"Select a measurement:")
     which_measure_dropdown_label.grid(row=2, column=0, padx=5, pady=5, sticky='e')
@@ -159,9 +159,9 @@ def main():
     which_measure_dropdown.set(list(vessel_data_json.keys())[0])
     which_measure_dropdown.grid(row=2, column=1, padx=5, pady=5)
 
-    '''
-    Create the portion of the GUI for the time point selection
-    '''
+    ##############################################################################################################
+    # Create the portion of the GUI for the time point selection
+    ##############################################################################################################
     # Create a label for the time point selection checkboxes
     time_point_checkboxes_label = ttk.Label(top_right_frame, text=f"Select time points:")
     time_point_checkboxes_label.grid(row=1, column=0, padx=5, pady=5, sticky='e')
@@ -171,9 +171,9 @@ def main():
     time_point_checkboxes_frame.grid(row=1, column=1)
     time_point_checkboxes = {}
 
-    '''
-    Update the time point portion of the GUI based on patient and side selection
-    '''
+    ##############################################################################################################
+    # Update the time point portion of the GUI based on patient and side selection
+    ##############################################################################################################
     # dynamically update the time points when the patient ID is selected
     def update_time_points(*args):
         patient_id = patient_id_dropdown.get()
@@ -200,9 +200,9 @@ def main():
     # when the patient ID is selected, update the time points
     # patient_id_dropdown.bind('<<ComboboxSelected>>', update_time_points)
 
-    '''
-    Create the portions of the GUI for the side selection
-    '''
+    ##############################################################################################################
+    # Create the portions of the GUI for the side selection
+    ##############################################################################################################
     side_selection_frame = ttk.Frame(top_right_frame)
     side_selection_frame.grid(row=0, column=1)
     # Create a label for the side selection radiobuttons
@@ -218,9 +218,9 @@ def main():
 
     # side_var.trace_add('write', update_time_points)
 
-    '''
-    Plot the filtered data for the selected patient ID, side, and time points
-    '''
+    ##############################################################################################################
+    # Plot the filtered data for the selected patient ID, side, and time points
+    ##############################################################################################################
     # 绘图区域
     fig, ax = plt.subplots(figsize=(5, 3))
     canvas = FigureCanvasTkAgg(fig, master=root)
@@ -274,9 +274,9 @@ def main():
         fig.tight_layout()
         canvas.draw()
 
-    '''
-    Update the time points and plot the data when the patient ID is selected
-    '''
+    ##############################################################################################################
+    # Update the time points and plot the data when the patient ID is selected
+    ##############################################################################################################
     def on_patient_id_selected(event=None):
         # 先更新时间点
         update_time_points()
@@ -290,16 +290,16 @@ def main():
     plot_data()
     # patient_id_dropdown.bind('<<ComboboxSelected>>', plot_data)
     
-    '''
-    Bind the data
-    '''
+    ##############################################################################################################
+    # Bind the data
+    ##############################################################################################################
     patient_id_dropdown.bind('<<ComboboxSelected>>', on_patient_id_selected)
     which_measure_dropdown.bind('<<ComboboxSelected>>', plot_data)
     side_var.trace_add('write', plot_data)
 
-    '''
-    Create a popup window to display patient information
-    '''
+    ##############################################################################################################
+    # Create a popup window to display patient information
+    ##############################################################################################################
     popup = None
 
     def Popinfo():
@@ -350,9 +350,9 @@ def main():
     open_popup_button = tk.Button(root, text="Patient Information", command=Popinfo)
     open_popup_button.grid(row=3, column=0, columnspan=2, pady=10)  # Adjusted placement for button
 
-    '''
-    Run the main loop
-    '''
+    ##############################################################################################################
+    # Run the main loop
+    ##############################################################################################################
     root.mainloop()
 
 
