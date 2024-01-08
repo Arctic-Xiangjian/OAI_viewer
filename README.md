@@ -27,10 +27,25 @@
 - Keep range the same across patients for an easier comparison
     - This will also keep the gray line in the same position
     - Let the user set the range, or zoom in/out as necessary
-- Lines 54-55
+- Lines 54-55 (before branch)
+    ```
+    root.grid_rowconfigure(2, weight=1) # make the canvas expand to fill the entire grid
+    root.grid_columnconfigure(0, weight=1) # make the canvas expand to fill the entire grid
+    ```
     - Look into this. Xiangjian said that changing values had no impact
-- Lines 172-176
-    - Potential for performance improvements?
+- Line 252 - 258 (current branch)
+    ```
+    # Calculate and plot the average value for all data at the current time point and side
+    # Here is little redundant, but it is easy to implement
+    all_data = data_loc[(data_loc['tp'] == int(0)) & (data_loc['side'] == side)]
+    average_value = all_data.groupby('loc')[which_measure].mean()
+
+    avg_values_to_plot = average_value.reindex(sorted_data['loc'])
+    ax.plot(sorted_data['loc'], avg_values_to_plot, linestyle='--', color='grey')
+    ```
+    - Xiangjian says there is a potential for performance improvements (John, look into this)
+    - Relevant comment from John:
+    > It would be better to move the average calculation out of the loop. For some reason it relies on the filtered_data in the loop though...
 
 ### Completed improvements
 - Improved padding and spacing of checkboxes and radiobuttons
