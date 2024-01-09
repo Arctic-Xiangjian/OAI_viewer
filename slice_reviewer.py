@@ -91,6 +91,10 @@ def main():
     # build the multi-select checkbox
     checkbox_var = {}
 
+    # Set starting range for the y-axis
+    y_min = 0
+    y_max = 2
+
     ####################################################################################################
     # Update the filtered patients when the checkboxes are clicked
     ####################################################################################################
@@ -200,7 +204,7 @@ def main():
             cb = ttk.Checkbutton(time_point_checkboxes_frame, text=str(tp), variable=var)
             cb.pack(side=tk.LEFT, padx = 3)
             time_point_checkboxes[tp] = var
-            var.trace_add('write', plot_data)
+            var.trace_add('write', plot_data(y_min=y_min, y_max=y_max))
 
     # when the patient ID is selected, update the time points
     # patient_id_dropdown.bind('<<ComboboxSelected>>', update_time_points)
@@ -234,13 +238,14 @@ def main():
     canvas_widget.grid(row=2, column=0, columnspan=2, sticky='nsew')
 
     # 可视化函数
-    def plot_data(*args): # pylint: disable=W0613
+    def plot_data(*args, y_min, y_max): # pylint: disable=W0613
         which_measure = vessel_data_json[which_measure_dropdown.get()]
         patient_id = patient_id_dropdown.get()
         side = side_var.get()
         selected_time_points = [tp for tp, var in time_point_checkboxes.items() if var.get()]
 
         ax.clear()
+        plt.ylim(y_min, y_max)
         color_map = plt.get_cmap('tab10')
 
         for i, tp in enumerate(selected_time_points):
@@ -283,25 +288,25 @@ def main():
     ####################################################################################################
     # Update the time points and plot the data when the patient ID is selected
     ####################################################################################################
-    def on_patient_id_selected(event=None):
+    def on_patient_id_selected(y_min, y_max):
         # 先更新时间点
         update_time_points()
         # 然后绘图
-        plot_data()
+        plot_data(y_min=y_min, y_max=y_max)
 
     update_time_points()
     # patient_id_dropdown.bind('<<ComboboxSelected>>', update_time_points)
     side_var.trace_add('write', update_time_points)
 
-    plot_data()
+    plot_data(y_min=y_min, y_max=y_max)
     # patient_id_dropdown.bind('<<ComboboxSelected>>', plot_data)
     
     ####################################################################################################
     # Bind the data
     ####################################################################################################
-    patient_id_dropdown.bind('<<ComboboxSelected>>', on_patient_id_selected)
-    which_measure_dropdown.bind('<<ComboboxSelected>>', plot_data)
-    side_var.trace_add('write', plot_data)
+    patient_id_dropdown.bind('<<ComboboxSelected>>', lambda: on_patient_id_selected(y_min, y_max))
+    which_measure_dropdown.bind('<<ComboboxSelected>>', lambda: plot_data(y_min=y_min, y_max=y_max))
+    side_var.trace_add('write', lambda *args: plot_data(y_min=y_min, y_max=y_max))
 
     ####################################################################################################
     # Create a popup window to display patient information
