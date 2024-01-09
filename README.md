@@ -27,6 +27,8 @@
 
 ### Slice viewer
 - Let user set a threshold and color points that are outside of that threshold
+    - Implementation idea:
+        - Filter out points that are outside of threshold, then add them separately with an edge color (edge coloration as seen [here](https://matplotlib.org/stable/users/explain/quick_start.html#colors))
 - Let user filter cases with certain confidence threshold variation
 - Keep range the same across patients for an easier comparison
     - This will also keep the gray line in the same position
