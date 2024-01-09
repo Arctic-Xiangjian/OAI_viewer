@@ -1,6 +1,7 @@
 # OAI Data Viewer
 ## John's Ideas for Improvement
 ### General
+- It could be good to let users add in data... This could cause problems, but it also could make this program more flexible. I'm mostly thinking of this as the data this was started with was incomplete. (missing some time points, some things just not transferred to UCAIR yet...)
 - Add units to axes
 - Add to legend (including for average line, clarifying that it is the average across cases at time point)
     - Is average across all total cases or all filtered cases?
