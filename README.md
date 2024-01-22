@@ -2,6 +2,10 @@
 Built with Python 3.11.7
 
 ## John's Ideas for Improvement
+
+### Issues
+- On Mac, the selection comboboxes are not readable unless highlighted when using darkmode on Mac. This is due to white text on a white backgroud.
+
 ### General
 - It could be good to let users add in data... This could cause problems, but it also could make this program more flexible. I'm mostly thinking of this as the data this was started with was incomplete. (missing some time points, some things just not transferred to UCAIR yet...)
 - Add units to axes
@@ -29,6 +33,7 @@ Built with Python 3.11.7
 
 ### Slice viewer
 - Let user set a threshold and color points that are outside of that threshold
+    - ALTERNATE way to do this: plot lines at the threshold values (above and below) that are *threshold_value* away from the average
     - Implementation idea:
         - Filter out points that are outside of threshold, then add them separately with an edge color (edge coloration as seen [here](https://matplotlib.org/stable/users/explain/quick_start.html#colors))
 - Let user filter cases with certain confidence threshold variation
